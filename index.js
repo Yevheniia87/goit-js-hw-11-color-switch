@@ -1,5 +1,3 @@
-import './styles.css';
-
 const colors = [
   '#FFFFFF',
   '#2196F3',
@@ -17,11 +15,24 @@ const refs = {
 const INTERVAL_DELAY = 1000;
 let intervalColorChange = undefined;
 
-refs.btnStart.addEventListener('click', start);
-refs.btnStop.addEventListener('click', stop);
+refs.btnStart.addEventListener('click', onStartBtn);
+refs.btnStop.addEventListener('click', onStopBtn);
 
-randomIntegerFromInterval = (min, max) => {
+const randomIntegerFromInterval = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
+
+function onStartBtn() {
+    intervalColorChange = setInterval(() => {
+        refs.bodyColor.style.backgroundColor = colors[randomIntegerFromInterval(0, colors.length - 1)];
+    }, INTERVAL_DELAY);
+    refs.btnStart.disabled = true;
+};
+function onStopBtn() {
+    clearInterval(intervalColorChange);
+    refs.btnStart.disabled = false;
+};
+
+
 
 
